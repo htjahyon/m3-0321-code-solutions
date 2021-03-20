@@ -35,9 +35,9 @@ class ToggleButton extends React.Component {
 
 function ContainerOff(props) {
   return (
-    <div id="containerOff" onClick={props.onClick}>
-      <div id="ovalOff">
-        <div id="circleOff"></div>
+    <div className="containerOff" onClick={props.onClick}>
+      <div className="ovalOff">
+        <div className="circleOff"></div>
       </div>
       <div className="text">
         <h1>Off</h1>
@@ -48,9 +48,9 @@ function ContainerOff(props) {
 
 function ContainerOn(props) {
   return (
-    <div id="containerOn" onClick={props.onClick}>
-      <div id="ovalOn">
-        <div id="circleOn"></div>
+    <div className="containerOn" onClick={props.onClick}>
+      <div className="ovalOn">
+        <div className="circleOn"></div>
       </div>
       <div className="text">
         <h1>On</h1>
