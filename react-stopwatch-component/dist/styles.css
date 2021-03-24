@@ -1,0 +1,59 @@
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border-width: 2px;
+  border-color: black;
+  border-style: solid;
+  cursor: pointer;
+}
+
+.time {
+  font-size: 45px;
+  margin-top: 47px;
+  text-align: center;
+}
+
+#root {
+  position: relative;
+}
+
+.start {
+  width: 0;
+  height: 0;
+  border-top: 15px solid transparent;
+  border-left: 30px solid black;
+  border-bottom: 15px solid transparent;
+  margin-top: 25px;
+  margin-left: 60px;
+  cursor: pointer;
+}
+
+.stop {
+  display: flex;
+  margin-top: 25px;
+  margin-left: 60px;
+  cursor: pointer;
+}
+
+.rectangle {
+  width: 10px;
+  height: 30px;
+  margin-left: 5px;
+  background-color: black;
+}
+
+.restart {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border-width: 2px;
+  border-color: black;
+  border-style: solid;
+  cursor: pointer;
+}
