@@ -34,9 +34,9 @@ class StopWatch extends React.Component {
   render() {
     const start = this.state.start;
     const seconds = this.state.seconds;
+    let stopwatch;
     if (start) {
-      return (
-                  <div className="container">
+      stopwatch = <div className="container">
                     <div className="circle">
                       <div className="time">{seconds}</div>
                     </div>
@@ -44,18 +44,20 @@ class StopWatch extends React.Component {
                       <div className="rectangle"></div>
                       <div className="rectangle"></div>
                     </div>
-                  </div>
-      );
+                  </div>;
     } else {
-      return (
-              <div className="container">
-                <div className="circle" onClick={this.handleReset}>
-                  <div className="time">{seconds}</div>
-                </div>
-                <div className="start" onClick={this.handleStart}></div>
-              </div>
-      );
+      stopwatch = <div className="container">
+                      <div className="circle" onClick={this.handleReset}>
+                        <div className="time">{seconds}</div>
+                      </div>
+                        <div className="start" onClick={this.handleStart}></div>
+                    </div>;
     }
+    return (
+      <div>
+        {stopwatch}
+      </div>
+    );
   }
 }
 
