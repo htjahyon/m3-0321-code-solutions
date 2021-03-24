@@ -6,16 +6,17 @@ class StopWatch extends React.Component {
     this.handleStart = this.handleStart.bind(this);
     this.handleStop = this.handleStop.bind(this);
     this.handleReset = this.handleReset.bind(this);
-    this.state = { start: false };
+    this.state = {
+      start: false,
+      seconds: 0
+    };
     this.interval = null;
-    this.seconds = 0;
   }
 
   handleStart() {
-    const timeDisplay = document.querySelector('.time');
     this.interval = setInterval(() => {
-      timeDisplay.textContent = this.seconds;
-      this.seconds++;
+      const seconds = this.state.seconds + 1;
+      this.setState({ seconds: seconds });
     }, 1000);
     this.setState({ start: true });
   }
@@ -27,44 +28,35 @@ class StopWatch extends React.Component {
 
   handleReset() {
     this.handleStop();
-    this.seconds = 0;
-    const timeDisplay = document.querySelector('.time');
-    timeDisplay.textContent = this.seconds;
+    this.setState({ seconds: 0 });
   }
 
   render() {
     const start = this.state.start;
-    let symbol;
-    const circleElement = document.querySelector('.circle');
+    const seconds = this.state.seconds;
     if (start) {
-      symbol = <Stop onClick={this.handleStop} />;
-      circleElement.removeEventListener('click', this.handleReset);
+      return (
+                  <div className="container">
+                    <div className="circle">
+                      <div className="time">{seconds}</div>
+                    </div>
+                    <div className="stop" onClick={this.handleStop}>
+                      <div className="rectangle"></div>
+                      <div className="rectangle"></div>
+                    </div>
+                  </div>
+      );
     } else {
-      symbol = <Start onClick={this.handleStart} />;
-      circleElement.addEventListener('click', this.handleReset);
+      return (
+              <div className="container">
+                <div className="circle" onClick={this.handleReset}>
+                  <div className="time">{seconds}</div>
+                </div>
+                <div className="start" onClick={this.handleStart}></div>
+              </div>
+      );
     }
-
-    return (
-      <div>
-        {symbol}
-      </div>
-    );
   }
-}
-
-function Start(props) {
-  return (
-    <div className="start" onClick={props.onClick}></div>
-  );
-}
-
-function Stop(props) {
-  return (
-    <div className="stop" onClick={props.onClick}>
-      <div className="rectangle"></div>
-      <div className="rectangle"></div>
-    </div>
-  );
 }
 
 export default StopWatch;
