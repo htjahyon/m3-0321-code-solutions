@@ -34,28 +34,23 @@ class StopWatch extends React.Component {
   render() {
     const start = this.state.start;
     const seconds = this.state.seconds;
-    let stopwatch;
+    let symbol = <div className="start" onClick={this.handleStart}></div>;
+    let reset = this.handleReset;
     if (start) {
-      stopwatch = <div className="container">
-                    <div className="circle">
-                      <div className="time">{seconds}</div>
-                    </div>
-                    <div className="stop" onClick={this.handleStop}>
-                      <div className="rectangle"></div>
-                      <div className="rectangle"></div>
-                    </div>
-                  </div>;
-    } else {
-      stopwatch = <div className="container">
-                      <div className="circle" onClick={this.handleReset}>
-                        <div className="time">{seconds}</div>
-                      </div>
-                        <div className="start" onClick={this.handleStart}></div>
-                    </div>;
+      symbol = (
+        <div className="stop" onClick={this.handleStop}>
+          <div className="rectangle"></div>
+          <div className="rectangle"></div>
+        </div>
+      );
+      reset = null;
     }
     return (
-      <div>
-        {stopwatch}
+      <div className="container">
+        <div className="circle" onClick={reset}>
+          <div className="time">{seconds}</div>
+        </div>
+        {symbol}
       </div>
     );
   }
