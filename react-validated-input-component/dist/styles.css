@@ -1,0 +1,55 @@
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  width: 120px;
+}
+
+.redx {
+  margin-left: 7px;
+  color: red;
+  font-size: 20px;
+  font-style: bold;
+}
+
+.tick-mark {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+.tick-mark::before {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 50%;
+  width: 3px;
+  background-color: green;
+  content: "";
+  transform: translateX(10px) rotate(-45deg);
+  transform-origin: left bottom;
+}
+
+.tick-mark::after {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 100%;
+  background-color: green;
+  content: "";
+  transform: translateX(10px) rotate(-45deg);
+  transform-origin: left bottom;
+}
+
+.short,
+.empty {
+  color: red;
+}
+
+.box {
+  display: flex;
+}
