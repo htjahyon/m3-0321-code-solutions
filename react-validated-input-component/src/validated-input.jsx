@@ -5,6 +5,7 @@ class ValidatedInput extends React.Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
+      password: '',
       filled: false,
       longEnough: false
     };
@@ -12,6 +13,7 @@ class ValidatedInput extends React.Component {
 
   handleChange(event) {
     const length = event.target.value.length;
+    this.setState({ password: event.target.value });
     if (length >= 8) {
       this.setState({
         filled: true,
