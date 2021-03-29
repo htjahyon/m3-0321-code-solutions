@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  height: 1000px;
+}
+
+.right {
+  background-color: gray;
+  width: 70%;
+  height: 1000px;
+  cursor: pointer;
+}
+
+.icon {
+  display: flex;
+  flex-direction: column;
+  width: 80px;
+  cursor: pointer;
+}
+
+.rectangle {
+  width: 75px;
+  height: 10px;
+  background-color: black;
+  margin-bottom: 10px;
+}
+
+h1,
+h3 {
+  width: 50%;
+  cursor: pointer;
+}
