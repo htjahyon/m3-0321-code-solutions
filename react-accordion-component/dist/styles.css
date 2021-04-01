@@ -3,9 +3,7 @@
   flex-direction: column;
 }
 
-.html-button,
-.css-button,
-.js-button {
+.button {
   width: 400px;
   height: 40px;
   font-size: 30px;
@@ -13,18 +11,24 @@
   border-style: solid;
   background-color: rgb(182, 178, 178);
   padding-left: 5px;
-  margin-bottom: 3px;
+  margin-bottom: 2px;
   cursor: pointer;
 }
 
-.html-text,
-.css-text,
-.js-text {
+.content {
   width: 400px;
   height: 100px;
   font-size: 15px;
   position: relative;
   border-style: solid;
   padding-left: 5px;
-  margin-bottom: 3px;
+  margin-bottom: 2px;
+}
+
+.show {
+  display: block;
+}
+
+.hidden {
+  display: none;
 }
