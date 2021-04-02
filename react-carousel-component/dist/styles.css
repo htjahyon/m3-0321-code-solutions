@@ -1,0 +1,58 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  height: 520px;
+  border-style: solid;
+  border-width: 3px;
+  position: absolute;
+}
+
+.box {
+  display: flex;
+  width: 600px;
+  height: 500px;
+  position: relative;
+}
+
+.previous,
+.next {
+  width: 10%;
+  height: 10%;
+  font-size: 80px;
+  margin: 0 auto;
+  margin-top: 35%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.picture {
+  width: 50%;
+  height: 90%;
+  margin-top: 3%;
+  justify-content: center;
+}
+
+.circles {
+  display: flex;
+  height: 20%;
+  justify-content: center;
+}
+
+.circle {
+  width: 20px;
+  height: 20px;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 50%;
+  margin-left: 6px;
+  cursor: pointer;
+}
+
+.black {
+  background-color: black;
+}
+
+.white {
+  background-color: white;
+}
