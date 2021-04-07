@@ -52,7 +52,11 @@ export default class App extends React.Component {
       }
     })
       .then(res => res.json())
-      .then(data => this.state.todos.push(newTodo))
+      .then(data => {
+        const todosArray = this.state.todos;
+        todosArray.push(data);
+        this.setState({ todo: todosArray });
+      })
       .catch(err => console.error('addTodo failed!', err));
   }
 
@@ -71,7 +75,9 @@ export default class App extends React.Component {
      * TIP: Be sure to SERIALIZE the updates in the body with JSON.stringify()
      * And specify the "Content-Type" header as "application/json"
      */
-    const notCompleted = !this.state.todos[todoId].isCompleted;
+    const match = element => element.todoId === todoId;
+    const index = this.state.todos.findIndex(match);
+    const notCompleted = !this.state.todos[index].isCompleted;
     fetch(`https://localhost:3000/api/todos/${todoId}`, {
       method: 'PATCH',
       headers: {
@@ -79,11 +85,16 @@ export default class App extends React.Component {
       },
       body: JSON.stringify(this.state.todos[todoId]),
       data: {
-        task: this.state.todos[todoId].task,
+        task: this.state.todos[index].task,
         isCompleted: notCompleted
       }
     })
       .then(res => res.json())
+      .then(data => {
+        const todosArray = this.state.todos;
+        todosArray[index] = data;
+        this.setState({ todos: todosArray });
+      })
       .catch(err => console.error('toggleCompleted failed!', err));
   }
 
