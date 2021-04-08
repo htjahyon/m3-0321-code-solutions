@@ -23,7 +23,7 @@ export default class App extends React.Component {
      * Then 😉, once the response JSON is received and parsed,
      * update state with the received todos.
      */
-    fetch('https://localhost:3000/api/todos', {
+    fetch('/api/todos', {
       method: 'GET'
     })
       .then(res => res.json())
@@ -40,7 +40,7 @@ export default class App extends React.Component {
     * TIP: Be sure to SERIALIZE the todo object in the body with JSON.stringify()
     * and specify the "Content-Type" header as "application/json"
     */
-    fetch('https://localhost:3000/api/todos', {
+    fetch('/api/todos', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -55,7 +55,7 @@ export default class App extends React.Component {
       .then(data => {
         const todosArray = this.state.todos;
         todosArray.push(data);
-        this.setState({ todo: todosArray });
+        this.setState({ todos: todosArray });
       })
       .catch(err => console.error('addTodo failed!', err));
   }
@@ -77,23 +77,24 @@ export default class App extends React.Component {
      */
     const match = element => element.todoId === todoId;
     const index = this.state.todos.findIndex(match);
-    const notCompleted = !this.state.todos[index].isCompleted;
-    fetch(`https://localhost:3000/api/todos/${todoId}`, {
+    const todos = this.state.todos;
+    const todo = todos[index];
+    todo.isCompleted = !todo.isCompleted;
+    fetch(`/api/todos/${todoId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(this.state.todos[todoId]),
+      body: JSON.stringify(todo),
       data: {
-        task: this.state.todos[index].task,
-        isCompleted: notCompleted
+        task: todo.task,
+        isCompleted: todo.isCompleted
       }
     })
       .then(res => res.json())
       .then(data => {
-        const todosArray = this.state.todos;
-        todosArray[index] = data;
-        this.setState({ todos: todosArray });
+        todos[index] = data;
+        this.setState({ todos: todos });
       })
       .catch(err => console.error('toggleCompleted failed!', err));
   }
