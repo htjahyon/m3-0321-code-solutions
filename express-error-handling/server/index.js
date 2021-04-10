@@ -30,7 +30,7 @@ app.get('/api/grades', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.post('/api/grades', (req, res) => {
+app.post('/api/grades', (req, res, next) => {
   const { name, course } = req.body;
   const score = parseInt(req.body.score, 10);
   if (!name || !course || !score) {
@@ -52,15 +52,10 @@ app.post('/api/grades', (req, res) => {
       const [newGrade] = result.rows;
       res.status(201).json(newGrade);
     })
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({
-        error: 'an unexpected error occurred'
-      });
-    });
+    .catch(err => next(err));
 });
 
-app.get('/api/grades/:gradeId', (req, res) => {
+app.get('/api/grades/:gradeId', (req, res, next) => {
   const gradeId = parseInt(req.params.gradeId, 10);
   if (!Number.isInteger(gradeId) || gradeId < 1) {
     throw new ClientError(400, 'grade must be a positive integer');
@@ -81,15 +76,10 @@ app.get('/api/grades/:gradeId', (req, res) => {
         res.json(grade);
       }
     })
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({
-        error: 'an unexpected error occurred'
-      });
-    });
+    .catch(err => next(err));
 });
 
-app.put('/api/grades/:gradeId', (req, res) => {
+app.put('/api/grades/:gradeId', (req, res, next) => {
   const gradeId = parseInt(req.params.gradeId, 10);
   if (!Number.isInteger(gradeId) || gradeId < 1) {
     throw new ClientError(400, 'grade must be a positive integer');
@@ -119,15 +109,10 @@ app.put('/api/grades/:gradeId', (req, res) => {
         res.json(updatedGrade);
       }
     })
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({
-        error: 'an unexpected error occurred'
-      });
-    });
+    .catch(err => next(err));
 });
 
-app.delete('/api/grades/:gradeId', (req, res) => {
+app.delete('/api/grades/:gradeId', (req, res, next) => {
   const gradeId = parseInt(req.params.gradeId, 10);
   if (!Number.isInteger(gradeId) || gradeId < 1) {
     throw new ClientError(400, 'grade must be a positive integer');
@@ -148,12 +133,7 @@ app.delete('/api/grades/:gradeId', (req, res) => {
         res.sendStatus(204);
       }
     })
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({
-        error: 'an unexpected error occurred'
-      });
-    });
+    .catch(err => next(err));
 });
 
 app.use(errorMiddleware);
