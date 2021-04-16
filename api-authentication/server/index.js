@@ -45,38 +45,44 @@ app.post('/api/auth/sign-up', (req, res, next) => {
 app.post('/api/auth/sign-in', (req, res, next) => {
   const { username, password } = req.body;
   if (!username || !password) {
-    throw new ClientError(401, 'invalid login');
+    throw new ClientError(401, 'invalid login: username and password needed');
   }
 
   /* your code starts here */
-  let usernameData, hashedPasswordData, userId;
   const sql = `
         select "username",
                "hashedPassword"
         from "users"
-        where "hashedPassword" = $2
-        returning "userId", "username", "password"`;
-  const params = [userId, usernameData, hashedPasswordData];
-  if (username !== usernameData) {
-    throw new ClientError(401, 'invalid login');
-  }
-  argon2
-    .verify(hashedPasswordData, password)
-    .then(isMatching => {
-      if (!isMatching) {
-        throw new ClientError(401, 'invalid login');
+        where "username" = $1
+        `;
+
+  const param = [username];
+
+  db.query(sql, param)
+    .then(result => {
+      const [user] = result.rows;
+      const usernameData = user[username];
+      const hashedPasswordData = user[password];
+      if (username !== usernameData) {
+        throw new ClientError(401, 'invalid username login');
       }
-      db.query(sql, params)
-        .then(result => {
-          const payload = { userId, username };
+
+      argon2
+        .verify(hashedPasswordData, password)
+        .then(isMatching => {
+          if (!isMatching) {
+            throw new ClientError(401, 'invalid password login');
+          }
+          const payload = { usernameData };
           const token = jwt.sign(payload, process.env.TOKEN_SECRET);
           res.status(200).json(token);
         })
         .catch(err => next(err));
     })
     .catch(err => next(err));
+});
 
-  /**
+/**
    * Query the database to find the "userId" and "hashedPassword" for the "username".
    * Then, 😉
    *    If no user is found,
@@ -93,8 +99,6 @@ app.post('/api/auth/sign-in', (req, res, next) => {
    *      Catch any error.
    * Catch any error.
    */
-
-});
 
 app.use(errorMiddleware);
 
