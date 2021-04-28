@@ -4,7 +4,6 @@ export default class Navbar extends React.Component {
   render() {
     const { user, handleSignOut } = this.context;
     return (
-      < AppContext.Consumer>
         <nav className="navbar navbar-dark bg-dark">
           <div className="container">
             <a className="navbar-brand" href="#">
@@ -31,7 +30,7 @@ export default class Navbar extends React.Component {
             </div>
           </div>
         </nav>
-      </AppContext.Consumer>
     );
   }
 }
+Navbar.contextType = AppContext;
